@@ -4,9 +4,6 @@ window.fineList = {
 }
 
 //Ця зміна містить всі дані які в нас зберігаються у файлі data
-let DB = data.finesData;
-
-function searchFines(searchKey){
     /*
      Напишіть свій код тут!
      Як ви бачите функція повертає статичні дані.
@@ -18,10 +15,27 @@ function searchFines(searchKey){
      - Невірне паркування
      - Їзда у не тверезому стані
      */
+let DB = data.finesData;
 
-
-    return [
-        {номер: '001', тип: 'Перевищення швидкості', сума: 100, дата: '2023-01-15'}
-    ];
+function searchFines(searchKey){
+  if(!isNaN(searchKey)){
+    console.log(searchKey)
+    const result = DB.filter(fine => fine.номер === searchKey);
+    return result;
+  } else if('Пошук за типом штрафу'){
+    const validTypes = ["Перевищення швидкості", "Невірне паркування", "Їзда у не тверезому стані"];
+    if (validTypes.includes(searchKey)) {
+        const result = DB.filter(fine => fine.тип === searchKey);
+        return result;
+    } else {
+        return "Невірний тип штрафу";
+    }
+} else {
+    return "Невірний параметр пошуку";
 }
+  }
+    // return [
+    //     {номер: '001', тип: 'Перевищення швидкості', сума: 100, дата: '2023-01-15'}
+    //}];
+
 

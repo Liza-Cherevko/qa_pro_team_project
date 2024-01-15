@@ -50,4 +50,6 @@ searchFines.addEventListener('click', () => {
     let fineType = document.getElementById("searchInput").value;
     let searchData = (number) ? number : fineType;
     populateFinesTable(fineList.searchFines(searchData));
+        console.log(fineList)
+        console.log(searchData)
 })
