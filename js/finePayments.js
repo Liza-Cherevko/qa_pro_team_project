@@ -33,6 +33,47 @@ alert "Номер не співпадає" або "Сума не співпад�
  тобто вам потрібно видалити обєкт з DB
  */
 buttonSubmit.addEventListener('click',payFine);
-function payFine(){
 
+function payFine(){
+    const fine = data.finesData.find(el => el.номер === fineNumber.value);
+
+    if(!fine) {
+        alert('Номер не співпадає')
+        return;
+    }
+
+    if(fine.сума !== Number(amount.value)) {
+        alert('Сума не співпадає')
+        return;
+    } 
+
+    const isPassportValid = passport.value.match(/^[А-ЩЬЮЯҐЄІЇа-щьюяґєії]{2}[0-9]{6}$/);
+
+    if(!isPassportValid){
+        alert('Не вірний паспортний номер')
+        return;
+    }
+
+    const isCreditCardNumValid = creditCardNumber.value.match(/^[0-9]{16}$/);
+
+    if(!isCreditCardNumValid){
+        alert('Не вірна кредитна картка')
+        return;
+    }
+
+    const isCvvValid = cvv.value.match(/^[0-9]{3}$/);
+
+    if(!isCvvValid){
+        alert('Не вірний cvv')
+        return;
+    }
+
+    //reset
+    fineNumber.value = ''
+    creditCardNumber.value = ''
+    cvv.value = ''
+    amount.value = ''
+    passport.value = ''
+
+    data.finesData = data.finesData.filter(el => el.номер !== fine.номер)
 }
